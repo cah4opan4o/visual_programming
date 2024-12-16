@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LTE Cell Info Table</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 18px;
+            text-align: left;
+        }
+        table th, table td {
+            border: 1px solid #dddddd;
+            padding: 8px;
+        }
+        table th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>LTE Cell Info</h1>
+    <table id="lte-table">
+        <thead>
+            <tr>
+                <th>RSRP (dBm)</th>
+                <th>RSRQ (dB)</th>
+                <th>ASU Level</th>
+                <th>Signal Level</th>
+                <th>Operator</th>
+                <th>MNC</th>
+                <th>MCC</th>
+                <th>Time</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Table rows will be inserted dynamically -->
+        </tbody>
+    </table>
+
+    <script>
+        // Load JSON data (simulating a file load for this example)
+        const jsonData = 
+        {
+            "jsonLteCellInfo": [
+                {
+                "rsrpLte": -102,
+                "rsrqLte": -8,
+                "asuLevelLte": 28,
+                "levelLte": 1,
+                "operatorLte": "MTS",
+                "mncLte": "99",
+                "mccLte": "250",
+                "time": "2024-12-13 22:06:26",
+                "latitude": 54.9433214,
+                "longitude": 82.9571709
+            },
+            {
+                "rsrpLte": -92,
+                "rsrqLte": -11,
+                "asuLevelLte": 38,
+                "levelLte": 2,
+                "operatorLte": "MTS",
+                "mncLte": "99",
+                "mccLte": "250",
+                "time": "2024-12-13 22:06:31",
+                "latitude": 54.9433418,
+                "longitude": 82.9571891
+            },
+            {
+                "rsrpLte": -99,
+                "rsrqLte": -9,
+                "asuLevelLte": 30,
+                "levelLte": 2,
+                "operatorLte": "MTS",
+                "mncLte": "99",
+                "mccLte": "250",
+                "time": "2024-12-13 22:06:36",
+                "latitude": 54.9432213,
+                "longitude": 82.9572879
+            },
+            {
+                "rsrpLte": -102,
+                "rsrqLte": -15,
+                "asuLevelLte": 31,
+                "levelLte": 4,
+                "operatorLte": "MTS",
+                "mncLte": "99",
+                "mccLte": "250",
+                "time": "2024-12-13 22:06:41",
+                "latitude": 54.9432029,
+                "longitude": 82.9572946
+            },
+            {
+                "rsrpLte": -92,
+                "rsrqLte": -10,
+                "asuLevelLte": 22,
+                "levelLte": 1,
+                "operatorLte": "MTS",
+                "mncLte": "99",
+                "mccLte": "250",
+                "time": "2024-12-13 22:06:46",
+                "latitude": 54.9431922,
+                "longitude": 82.9571295
+            },
+            {
+                "rsrpLte": -120,
+                "rsrqLte": -12,
+                "asuLevelLte": 32,
+                "levelLte": 3,
+                "operatorLte": "MTS",
+                "mncLte": "99",
+                "mccLte": "250",
+                "time": "2024-12-13 22:06:51",
+                "latitude": 54.9433273,
+                "longitude": 82.9572745
+            },
+            {
+                "rsrpLte": -100,
+                "rsrqLte": -11,
+                "asuLevelLte": 22,
+                "levelLte": 3,
+                "operatorLte": "MTS",
+                "mncLte": "99",
+                "mccLte": "250",
+                "time": "2024-12-13 22:06:56",
+                "latitude": 54.9431698,
+                "longitude": 82.957267
+            },
+            {
+                "rsrpLte": -93,
+                "rsrqLte": -11,
+                "asuLevelLte": 37,
+                "levelLte": 2,
+                "operatorLte": "MTS",
+                "mncLte": "99",
+                "mccLte": "250",
+                "time": "2024-12-13 22:07:01",
+                "latitude": 54.9433163,
+                "longitude": 82.9572942
+            },
+            {
+                "rsrpLte": -104,
+                "rsrqLte": -10,
+                "asuLevelLte": 31,
+                "levelLte": 4,
+                "operatorLte": "MTS",
+                "mncLte": "99",
+                "mccLte": "250",
+                "time": "2024-12-13 22:07:06",
+                "latitude": 54.9432313,
+                "longitude": 82.9571847
+            },
+            {
+                "rsrpLte": -111,
+                "rsrqLte": -11,
+                "asuLevelLte": 27,
+                "levelLte": 1,
+                "operatorLte": "MTS",
+                "mncLte": "99",
+                "mccLte": "250",
+                "time": "2024-12-13 22:07:11",
+                "latitude": 54.943355,
+                "longitude": 82.9572733
+            },
+            {
+                "rsrpLte": -98,
+                "rsrqLte": -8,
+                "asuLevelLte": 33,
+                "levelLte": 1,
+                "operatorLte": "MTS",
+                "mncLte": "99",
+                "mccLte": "250",
+                "time": "2024-12-13 22:07:16",
+                "latitude": 54.9432669,
+                "longitude": 82.9572871
+            },
+            {
+                "rsrpLte": -111,
+                "rsrqLte": -9,
+                "asuLevelLte": 37,
+                "levelLte": 2,
+                "operatorLte": "MTS",
+                "mncLte": "99",
+                "mccLte": "250",
+                "time": "2024-12-13 22:07:21",
+                "latitude": 54.9432644,
+                "longitude": 82.9571978
+            },
+            {
+                "rsrpLte": -93,
+                "rsrqLte": -12,
+                "asuLevelLte": 38,
+                "levelLte": 4,
+                "operatorLte": "MTS",
+                "mncLte": "99",
+                "mccLte": "250",
+                "time": "2024-12-13 22:07:26",
+                "latitude": 54.9432901,
+                "longitude": 82.9572529
+            },
+            {
+                "rsrpLte": -97,
+                "rsrqLte": -14,
+                "asuLevelLte": 37,
+                "levelLte": 1,
+                "operatorLte": "MTS",
+                "mncLte": "99",
+                "mccLte": "250",
+                "time": "2024-12-13 22:07:31",
+                "latitude": 54.9432721,
+                "longitude": 82.9572473
+            },
+            {
+                "rsrpLte": -92,
+                "rsrqLte": -8,
+                "asuLevelLte": 20,
+                "levelLte": 3,
+                "operatorLte": "MTS",
+                "mncLte": "99",
+                "mccLte": "250",
+                "time": "2024-12-13 22:07:36",
+                "latitude": 54.9432569,
+                "longitude": 82.9572898
+            },
+            {
+                "rsrpLte": -110,
+                "rsrqLte": -12,
+                "asuLevelLte": 29,
+                "levelLte": 3,
+                "operatorLte": "MTS",
+                "mncLte": "99",
+                "mccLte": "250",
+                "time": "2024-12-13 22:07:41",
+                "latitude": 54.943357,
+                "longitude": 82.9571931
+            },
+            {
+                "rsrpLte": -92,
+                "rsrqLte": -8,
+                "asuLevelLte": 33,
+                "levelLte": 4,
+                "operatorLte": "MTS",
+                "mncLte": "99",
+                "mccLte": "250",
+                "time": "2024-12-13 22:07:46",
+                "latitude": 54.9431805,
+                "longitude": 82.9572865
+            },
+            {
+                "rsrpLte": -107,
+                "rsrqLte": -8,
+                "asuLevelLte": 36,
+                "levelLte": 1,
+                "operatorLte": "MTS",
+                "mncLte": "99",
+                "mccLte": "250",
+                "time": "2024-12-13 22:07:51",
+                "latitude": 54.9433187,
+                "longitude": 82.9571165
+            },
+            {
+                "rsrpLte": -95,
+                "rsrqLte": -13,
+                "asuLevelLte": 37,
+                "levelLte": 4,
+                "operatorLte": "MTS",
+                "mncLte": "99",
+                "mccLte": "250",
+                "time": "2024-12-13 22:07:56",
+                "latitude": 54.943162,
+                "longitude": 82.9571503
+            },
+            {
+                "rsrpLte": -90,
+                "rsrqLte": -14,
+                "asuLevelLte": 34,
+                "levelLte": 2,
+                "operatorLte": "MTS",
+                "mncLte": "99",
+                "mccLte": "250",
+                "time": "2024-12-13 22:08:01",
+                "latitude": 54.9433558,
+                "longitude": 82.9571997
+            },
+            {
+                "rsrpLte": -111,
+                "rsrqLte": -14,
+                "asuLevelLte": 20,
+                "levelLte": 2,
+                "operatorLte": "MTS",
+                "mncLte": "99",
+                "mccLte": "250",
+                "time": "2024-12-13 22:08:06",
+                "latitude": 54.9432411,
+                "longitude": 82.957304
+            },
+            {
+                "rsrpLte": -100,
+                "rsrqLte": -11,
+                "asuLevelLte": 30,
+                "levelLte": 2,
+                "operatorLte": "MTS",
+                "mncLte": "99",
+                "mccLte": "250",
+                "time": "2024-12-13 22:08:11",
+                "latitude": 54.9432333,
+                "longitude": 82.9572458
+            },
+            {
+                "rsrpLte": -96,
+                "rsrqLte": -15,
+                "asuLevelLte": 25,
+                "levelLte": 2,
+                "operatorLte": "MTS",
+                "mncLte": "99",
+                "mccLte": "250",
+                "time": "2024-12-13 22:08:16",
+                "latitude": 54.9432359,
+                "longitude": 82.9573054
+            },
+            {
+                "rsrpLte": -105,
+                "rsrqLte": -12,
+                "asuLevelLte": 36,
+                "levelLte": 4,
+                "operatorLte": "MTS",
+                "mncLte": "99",
+                "mccLte": "250",
+                "time": "2024-12-13 22:08:21",
+                "latitude": 54.943335,
+                "longitude": 82.9572167
+            },
+            {
+                "rsrpLte": -97,
+                "rsrqLte": -13,
+                "asuLevelLte": 33,
+                "levelLte": 4,
+                "operatorLte": "MTS",
+                "mncLte": "99",
+                "mccLte": "250",
+                "time": "2024-12-13 22:08:26",
+                "latitude": 54.9431997,
+                "longitude": 82.957273
+            },
+            {
+                "rsrpLte": -117,
+                "rsrqLte": -11,
+                "asuLevelLte": 26,
+                "levelLte": 1,
+                "operatorLte": "MTS",
+                "mncLte": "99",
+                "mccLte": "250",
+                "time": "2024-12-13 22:08:31",
+                "latitude": 54.9432371,
+                "longitude": 82.9572957
+            },
+            {
+                "rsrpLte": -98,
+                "rsrqLte": -12,
+                "asuLevelLte": 39,
+                "levelLte": 2,
+                "operatorLte": "MTS",
+                "mncLte": "99",
+                "mccLte": "250",
+                "time": "2024-12-13 22:08:36",
+                "latitude": 54.9432626,
+                "longitude": 82.9571986
+            },
+            {
+                "rsrpLte": -92,
+                "rsrqLte": -14,
+                "asuLevelLte": 34,
+                "levelLte": 4,
+                "operatorLte": "MTS",
+                "mncLte": "99",
+                "mccLte": "250",
+                "time": "2024-12-13 22:08:41",
+                "latitude": 54.9432276,
+                "longitude": 82.9572806
+            },
+            {
+                "rsrpLte": -120,
+                "rsrqLte": -8,
+                "asuLevelLte": 35,
+                "levelLte": 3,
+                "operatorLte": "MTS",
+                "mncLte": "99",
+                "mccLte": "250",
+                "time": "2024-12-13 22:08:46",
+                "latitude": 54.9433005,
+                "longitude": 82.9571233
+            },
+            {
+                "rsrpLte": -118,
+                "rsrqLte": -8,
+                "asuLevelLte": 21,
+                "levelLte": 2,
+                "operatorLte": "MTS",
+                "mncLte": "99",
+                "mccLte": "250",
+                "time": "2024-12-13 22:08:51",
+                "latitude": 54.943316,
+                "longitude": 82.9572337
+            },
+            {
+                "rsrpLte": -91,
+                "rsrqLte": -12,
+                "asuLevelLte": 38,
+                "levelLte": 3,
+                "operatorLte": "MTS",
+                "mncLte": "99",
+                "mccLte": "250",
+                "time": "2024-12-13 22:08:56",
+                "latitude": 54.9433502,
+                "longitude": 82.9572616
+            },
+            {
+                "rsrpLte": -106,
+                "rsrqLte": -11,
+                "asuLevelLte": 29,
+                "levelLte": 1,
+                "operatorLte": "MTS",
+                "mncLte": "99",
+                "mccLte": "250",
+                "time": "2024-12-13 22:09:01",
+                "latitude": 54.9432924,
+                "longitude": 82.9571983
+            },
+            {
+                "rsrpLte": -95,
+                "rsrqLte": -10,
+                "asuLevelLte": 28,
+                "levelLte": 3,
+                "operatorLte": "MTS",
+                "mncLte": "99",
+                "mccLte": "250",
+                "time": "2024-12-13 22:09:06",
+                "latitude": 54.9432107,
+                "longitude": 82.9571766
+            },
+            {
+                "rsrpLte": -115,
+                "rsrqLte": -10,
+                "asuLevelLte": 33,
+                "levelLte": 2,
+                "operatorLte": "MTS",
+                "mncLte": "99",
+                "mccLte": "250",
+                "time": "2024-12-13 22:09:11",
+                "latitude": 54.943217,
+                "longitude": 82.957282
+            }
+            ]
+        };
+
+        const tableBody = document.querySelector("#lte-table tbody");
+
+        jsonData.jsonLteCellInfo.forEach(cell => {
+            const row = document.createElement("tr");
+
+            row.innerHTML = `
+                <td>${cell.rsrpLte}</td>
+                <td>${cell.rsrqLte}</td>
+                <td>${cell.asuLevelLte}</td>
+                <td>${cell.levelLte}</td>
+                <td>${cell.operatorLte}</td>
+                <td>${cell.mncLte}</td>
+                <td>${cell.mccLte}</td>
+                <td>${cell.time}</td>
+                <td>${cell.latitude}</td>
+                <td>${cell.longitude}</td>
+            `;
+
+            tableBody.appendChild(row);
+        });
+    </script>
+</body>
+</html>

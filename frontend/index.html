@@ -1,0 +1,46 @@
+<script>
+    const socket = new WebSocket("ws://localhost:8080/ws");
+
+    socket.onopen = () => {
+        console.log("Connected to WebSocket");
+        socket.send("REQUEST_DATA"); // Запрашиваем данные сразу после подключения
+    };
+
+    socket.onmessage = (event) => {
+        const jsonData = JSON.parse(event.data);
+        if (jsonData.error) {
+            console.error(jsonData.error);
+            return;
+        }
+
+        const tableBody = document.querySelector("#lte-table tbody");
+        tableBody.innerHTML = ""; // Очищаем таблицу перед обновлением
+
+        jsonData.jsonLteCellInfo.forEach(cell => {
+            const row = document.createElement("tr");
+
+            row.innerHTML = `
+                <td>${cell.rsrpLte}</td>
+                <td>${cell.rsrqLte}</td>
+                <td>${cell.asuLevelLte}</td>
+                <td>${cell.levelLte}</td>
+                <td>${cell.operatorLte}</td>
+                <td>${cell.mncLte}</td>
+                <td>${cell.mccLte}</td>
+                <td>${cell.time}</td>
+                <td>${cell.latitude}</td>
+                <td>${cell.longitude}</td>
+            `;
+
+            tableBody.appendChild(row);
+        });
+    };
+
+    socket.onclose = () => {
+        console.log("WebSocket connection closed");
+    };
+
+    socket.onerror = (error) => {
+        console.error("WebSocket error:", error);
+    };
+</script>
